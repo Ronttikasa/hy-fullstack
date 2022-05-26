@@ -22,19 +22,29 @@ const Display = (props) => {
 
 const Statistics = (props) => {
   let all = props.good + props.neutral + props.bad
-  return (
-    <>
-    <p>
-      all {all}
-    </p>
-    <p>
-      average {(props.good - props.bad)/all}
-    </p>
-    <p>
-      positive {props.good/all*100} %
-    </p>
-    </>
-  )
+  if (all == 0) {
+    return (
+      <p>No feedback given</p>
+    )  
+    } else {
+    return (
+      <>
+      <Display name="good" count={props.good} />
+      <Display name="neutral" count={props.neutral} />
+      <Display name="bad" count={props.bad} />
+        <p>
+          all {all}
+        </p>
+        <p>
+          average {(props.good - props.bad)/all}
+        </p>
+        <p>
+          positive {props.good/all*100} %
+        </p>
+      </>
+    )
+  }
+
 }
 
 const App = () => {
@@ -54,9 +64,6 @@ const App = () => {
       <Button handleClick={increaseNeutral} text='neutral' />
       <Button handleClick={increaseBad} text='bad' />
       <Header title="statistics" />
-      <Display name="good" count={good} />
-      <Display name="neutral" count={neutral} />
-      <Display name="bad" count={bad} />
       <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   )
